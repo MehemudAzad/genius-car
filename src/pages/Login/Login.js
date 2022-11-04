@@ -1,5 +1,8 @@
 import React from 'react';
 import image from '../../assets/images/login/login.svg';
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook, FaLinkedinIn } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const handleSubmit =()=>{
@@ -33,6 +36,15 @@ const Login = () => {
                         <div className="form-control mt-6">
                         <button className="btn bg-rose-500 hover:bg-rose-600 border-none">Sign In</button>
                         </div>
+                        <div className='text-center'>
+                            <p className='mt-3'>Or Sign In with</p>
+                            <div className='flex gap-3 justify-center mt-2'>
+                                <div className='p-2 rounded-full bg-blue-50'><FcGoogle></FcGoogle></div>
+                                <div className='p-2 rounded-full bg-blue-50'><FaLinkedinIn></FaLinkedinIn></div>
+                                <div className='p-2 rounded-full bg-blue-50'><FaFacebook></FaFacebook></div>
+                            </div>
+                        </div>
+                        <p className='text-center mt-3'>Create new account. <Link className='text-rose-500' to="/signup">Sign Up</Link></p>
                     </form>
                     </div>
                 </div>

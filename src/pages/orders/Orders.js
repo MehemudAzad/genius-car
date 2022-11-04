@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+// import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import OrderRow from './OrderRow';
 
 const Orders = () => {
