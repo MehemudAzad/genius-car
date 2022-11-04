@@ -14,7 +14,8 @@ const Checkout = () => {
             const email = user?.email || 'unregistered';
             const phone = form.phone.value;
             const message = form.message.value;
-    
+            
+            //this is very important, but often overlooked. Here we are creating an object named order than passing it using the post api method. This is how we generally create object to store future value.
             const order = {
                 service: _id,
                 serviceName: title,
@@ -55,18 +56,18 @@ const Checkout = () => {
     
         return (
             <div>
-                <form onSubmit={handlePlaceOrder}>
+                <form onSubmit={handlePlaceOrder} className="p-8 rounded-xl bg-gray-100 my-12">
                     <h2 className="text-4xl">You are about to order: {title}</h2>
                     <h4 className="text-3xl">Price: {price}</h4>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                        <input name="firstName" type="text" placeholder="First Name" className="input input-ghost w-full  input-bordered" />
-                        <input name="lastName" type="text" placeholder="Last Name" className="input input-ghost w-full  input-bordered" />
-                        <input name="phone" type="text" placeholder="Your Phone" className="input input-ghost w-full  input-bordered" required />
-                        <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly />
+                        <input name="firstName" type="text" placeholder="First Name" className="input input-ghost w-full  input-bordered bg-white mt-5" />
+                        <input name="lastName" type="text" placeholder="Last Name" className="input input-ghost w-full  input-bordered bg-white mt-5" />
+                        <input name="phone" type="text" placeholder="Your Phone" className="input input-ghost w-full  input-bordered bg-white my-5" required />
+                        <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered bg-white my-5" readOnly />
                     </div>
-                    <textarea name="message" className="textarea textarea-bordered h-24 w-full" placeholder="Your Message" required></textarea>
+                    <textarea name="message" className="textarea textarea-bordered h-24 w-full my-5" placeholder="Your Message" required></textarea>
     
-                    <input className='btn' type="submit" value="Place Your Order" />
+                    <input className='btn w-full mt-5 bg-orange-500 border-none hover:bg-orange-600' type="submit" value="Order Confirm" />
                 </form>
             </div>
         );

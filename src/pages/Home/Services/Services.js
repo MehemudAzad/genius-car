@@ -5,8 +5,11 @@ const Services = () => {
 
     const [services, setServices] = useState([]);
 
+    //[] means that this will be called only once
+    //having no dependency means that it will be called infinite times
+    //having dependency means it will be called every time there is a change in the dependency
     useEffect(()=>{
-        fetch('services.json')
+        fetch('http://localhost:5000/services')
         .then(res => res.json())
         .then(data => setServices(data))
     },[])
