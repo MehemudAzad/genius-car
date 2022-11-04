@@ -1,12 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import image from '../../assets/images/login/login.svg';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaLinkedinIn } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Login = () => {
+    const [error, setError] = useState(null);
     const {googleSignIn, login} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname|| '/';
     
     const handleGoogleSignIn =()=>{
         googleSignIn()
@@ -27,8 +32,12 @@ const Login = () => {
         .then((result)=>{
             const user = result.user;
             console.log(user);
+            navigate(from, {replace:true});
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            setError(err.message );
+        });
     }
     return (
         <div>
@@ -55,6 +64,7 @@ const Login = () => {
                             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                         </div>
+                        <p className='text-rose-500'>{error}</p>
                         <div className="form-control mt-6">
                         <button type='submit' className="btn bg-rose-500 hover:bg-rose-600 border-none">Sign In</button>
                         </div>

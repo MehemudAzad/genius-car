@@ -44,6 +44,7 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
             <th>
                 <button 
                 onClick={() => handleStatusUpdate(_id)}
+                // if status is present show status otherwise just show pending
                 className="btn btn-ghost btn-xs">{status ? status : 'pending'}</button>
             </th>
         </tr>
