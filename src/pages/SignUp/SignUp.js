@@ -7,7 +7,17 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 
 const SignUp = () => {
-    const {createUser} = useContext(AuthContext);
+    const {createUser, googleSignIn} = useContext(AuthContext);
+
+    const handleGoogleSignIn =()=>{
+        googleSignIn()
+        .then(result=>{
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(err => console.log(err));
+    }
+
     const handleSignUp = event =>{
         event.preventDefault();
         const form = event.target;
@@ -47,7 +57,7 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" name='password' placeholder="password" className="input input-bordered" required/>
+                            <input type="password" name='password' placeholder="password" className="input input-bordered" required/>
                             
                         </div>
                         <div className="form-control mt-6">
@@ -58,9 +68,9 @@ const SignUp = () => {
                     <div className='text-center'>
                             <p className='mt-3'>Or Sign In with</p>
                             <div className='flex gap-3 justify-center mt-2'>
-                                <div className='p-2 rounded-full bg-blue-50'><FcGoogle></FcGoogle></div>
-                                <div className='p-2 rounded-full bg-blue-50'><FaLinkedinIn></FaLinkedinIn></div>
-                                <div className='p-2 rounded-full bg-blue-50'><FaFacebook></FaFacebook></div>
+                                <div className='p-2 rounded-full bg-blue-50 hover:bg-blue-100 cursor-pointer' onClick={handleGoogleSignIn}><FcGoogle></FcGoogle></div>
+                                <div className='p-2 rounded-full bg-blue-50 hover:bg-blue-100 cursor-pointer'><FaLinkedinIn></FaLinkedinIn></div>
+                                <div className='p-2 rounded-full bg-blue-50 hover:bg-blue-100 cursor-pointer'><FaFacebook></FaFacebook></div>
                             </div>
                         </div>
                     <p className='text-center mt-3'>Already have an account? <Link className='text-rose-500' to="/login">Login</Link> </p>
