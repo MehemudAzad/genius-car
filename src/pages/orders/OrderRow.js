@@ -25,7 +25,8 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
                         <div className="rounded w-24 h-24">
                             {
                                 orderService?.img && 
-                                <img src={orderService.img} alt="Avatar Tailwind CSS Component" />}
+                                <img src={orderService.img} alt="Avatar Tailwind CSS Component" />  
+                            }
                         </div>
                     </div>
                     <div>
@@ -37,9 +38,9 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
             <td>
                 {serviceName}
                 <br />
-                <span className="badge badge-ghost badge-sm">${price}</span>
+                <span className="badge badge-ghost badge-sm">$ {price}</span>
             </td>
-            <td>Purple</td>
+            <td>{phone}</td>
             <th>
                 <button 
                 onClick={() => handleStatusUpdate(_id)}

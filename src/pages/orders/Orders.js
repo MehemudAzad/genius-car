@@ -7,6 +7,7 @@ const Orders = () => {
     const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState([])
 
+    //this api is getting all the orders done from this email account, we don't want the full order because that inclued other users as well
     useEffect(() => {
         fetch(`http://localhost:5000/orders?email=${user?.email}`)
             .then(res => res.json())
@@ -22,6 +23,7 @@ const Orders = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                //here we get an object an inside of it there is a property named deletedCount whose value becomes 1 once when you click it
                 if (data.deletedCount > 0){
                     alert('deleted successfully');
                     const remaining = orders.filter(odr => odr._id !== id);
@@ -42,6 +44,7 @@ const Orders = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
+            //here we have something called modified count in an object called data
             if(data.modifiedCount > 0) {
                 const remaining = orders.filter(odr => odr._id !== id);
                 const approving = orders.find(odr => odr._id === id);

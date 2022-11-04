@@ -8,9 +8,13 @@ const Checkout = () => {
         const { user } = useContext(AuthContext);
     
         const handlePlaceOrder = event => {
+            //default reload behavior when we use onSubmit eventhandlers
             event.preventDefault();
+            //calling the form with event.target
             const form = event.target;
+            //firstname and lastname add kore fullname banano joss
             const name = `${form.firstName.value} ${form.lastName.value}`;
+            //going inside the form and then calling the name of the input and then .value to get the value
             const email = user?.email || 'unregistered';
             const phone = form.phone.value;
             const message = form.message.value;
@@ -33,6 +37,7 @@ const Checkout = () => {
     
             // }
     
+            //post api
             fetch('http://localhost:5000/orders', {
                 method: 'POST',
                 headers: {
@@ -42,16 +47,15 @@ const Checkout = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    console.log(data);
                     if(data.acknowledged){
-                        alert('Order placed successfully')
-                        form.reset();
-                        
+                        alert('Order placed successfully');
                     }
                 })
                 .catch(er => console.error(er));
-    
-    
+
+            //reseting the form after it has been submitted
+                form.reset();
         }
     
         return (
@@ -67,7 +71,7 @@ const Checkout = () => {
                     </div>
                     <textarea name="message" className="textarea textarea-bordered h-24 w-full my-5" placeholder="Your Message" required></textarea>
     
-                    <input className='btn w-full mt-5 bg-orange-500 border-none hover:bg-orange-600' type="submit" value="Order Confirm" />
+                    <input className='btn w-full mt-5 bg-[#FF3811] border-none hover:bg-[#ce3010]' type="submit" value="Order Confirm" />
                 </form>
             </div>
         );
