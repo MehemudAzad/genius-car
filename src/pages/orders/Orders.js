@@ -4,21 +4,34 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import OrderRow from './OrderRow';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [orders, setOrders] = useState([])
 
     //this api is getting all the orders done from this email account, we don't want the full order because that inclued other users as well
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`https://genius-car-server-iota-black.vercel.app/orders?email=${user?.email}`,{
+            headers:{
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
+            }
+        })
+            .then(res =>{
+                if(res.status === 401 || res.status === 403 ){
+                    return logOut();
+                }
+                res.json()
+            } )
             .then(data => setOrders(data))
-    }, [user?.email])
+    }, [user?.email, logOut])
 
     const handleDelete = id =>{
         const proceed = window.confirm('Are you sure, you want to cancel this order');
         if(proceed){
-            fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
+            fetch(`https://genius-car-server-iota-black.vercel.app/orders/${id}`, {
+                method: 'DELETE',
+                headers:{
+                        authorization: `Bearer ${localStorage.getItem('genius-token')}`
+                    }
+                
             })
             .then(res => res.json())
             .then(data => {
@@ -34,10 +47,11 @@ const Orders = () => {
     }
 
     const handleStatusUpdate = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://genius-car-server-iota-black.vercel.app/orders/${id}`, {
             method: 'PATCH', 
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
             },
             body: JSON.stringify({status: 'Approved'})
         })
@@ -58,7 +72,7 @@ const Orders = () => {
 
     return (
         <div>
-            <h2 className="text-5xl">You have {orders.length} Orders</h2>
+            <h2 className="text-5xl">You have {orders?.length} Orders</h2>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
@@ -73,7 +87,7 @@ const Orders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.map(order => <OrderRow
+                            orders?.map(order => <OrderRow
                                 key={order._id}
                                 order={order}
                                 handleDelete={handleDelete}

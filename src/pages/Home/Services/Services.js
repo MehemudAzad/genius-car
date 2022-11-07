@@ -9,7 +9,7 @@ const Services = () => {
     //having no dependency means that it will be called infinite times
     //having dependency means it will be called every time there is a change in the dependency
     useEffect(()=>{
-        fetch('http://localhost:5000/services')
+        fetch('https://genius-car-server-iota-black.vercel.app/services')
         .then(res => res.json())
         .then(data => setServices(data))
     },[])

@@ -4,6 +4,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaLinkedinIn } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import SocialLogin from '../shared/SocialLogin';
+import { setAuthToken } from '../../api/auth';
 
 const Login = () => {
     const [error, setError] = useState(null);
@@ -18,8 +20,17 @@ const Login = () => {
         .then(result=>{
             const user = result.user;
             console.log(user);
+
+            //getting the jwt token 
+            setAuthToken(user);  
+
+            navigate(from, {replace:true});
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            setError(err.message );
+        });
+     
     }
 
     const handleSubmit =(event)=>{
@@ -31,7 +42,9 @@ const Login = () => {
         login(email, password)
         .then((result)=>{
             const user = result.user;
-            console.log(user);
+            console.log(user.email);
+            setAuthToken(user);
+            //navigate
             navigate(from, {replace:true});
         })
         .catch(err => {
@@ -78,6 +91,7 @@ const Login = () => {
                         </div>
                         <p className='text-center mt-3'>Create new account. <Link className='text-rose-500' to="/signup">Sign Up</Link></p>
                     </form>
+                        {/* <SocialLogin></SocialLogin> */}
                     </div>
                 </div>
             </div>
