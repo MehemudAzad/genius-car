@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import { FadeLoader } from 'react-spinners';
 
 const PrivateRoute = ({children}) => {
     const {user, loading} = useContext(AuthContext);
     const location  = useLocation();
 
     if(loading) {
-        return <h1 className='text-5xl'>Loading...</h1>
+        return <FadeLoader className='py-40 my-20 mx-auto' color="#36d7b7" height={25}width={5} />
     }
     // console.log(user);
     if(user){
